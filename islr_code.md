@@ -7,6 +7,7 @@ Nazmul Hossain
 #### Basic Commands
 
 ``` r
+# create vector
 x <- c(1,3,2,5)
 x
 ```
@@ -22,6 +23,7 @@ x
 
 ``` r
 y = c(1,4,3)
+#check length
 length(x)
 ```
 
@@ -34,26 +36,28 @@ length(y)
     [1] 3
 
 ``` r
+# add two vector
 x+y
 ```
 
     [1]  2 10  5
 
 ``` r
-ls()
+ls() # look a list of all objects
 ```
 
     [1] "x" "y"
 
 ``` r
-rm(x,y)
+rm(x,y) # remove/delete object
 ls()
 ```
 
     character(0)
 
 ``` r
-rm(list=ls())
+rm(list=ls()) # remove all objects
+# create matrix
 x=matrix(data=c(1,2,3,4), nrow=2, ncol=2)
 x
 ```
@@ -88,15 +92,17 @@ x^2
     [2,]    4   16
 
 ``` r
-x=rnorm(50)
+# generate a vector of random variables 
+x=rnorm(50) # standard normal with mean 0, standard deviation 1
 y=x+rnorm(50,mean=50,sd=.1)
+# compute correlation between x & y
 cor(x,y)
 ```
 
-    [1] 0.9942503
+    [1] 0.9962846
 
 ``` r
-set.seed(1303)
+set.seed(1303) # reproduce the exact same set of random numbers
 rnorm(50)
 ```
 
@@ -114,6 +120,7 @@ rnorm(50)
 ``` r
 set.seed(3)
 y=rnorm(100)
+# calculate mean, var, & std
 mean(y)
 ```
 
@@ -142,6 +149,7 @@ sd(y)
 ``` r
 x=rnorm(100)
 y=rnorm(100)
+# scatter plot
 plot(x,y)
 ```
 
@@ -154,15 +162,16 @@ plot(x,y,xlab="this is the x-axis",ylab="this is the y-axis",main="Plot of X vs 
 ![](islr_code_files/figure-commonmark/unnamed-chunk-2-2.png)
 
 ``` r
-pdf("Figure.pdf")
+pdf("Figure.pdf") # save the plot as pdf
 plot(x,y,col="green")
-dev.off()
+dev.off() # indicated done creating plot
 ```
 
     png 
       2 
 
 ``` r
+# sequence of numbers
 x=seq(1,10)
 x
 ```
@@ -180,6 +189,7 @@ x
 x=seq(-pi,pi,length=50)
 y=x
 f=outer(x,y,function(x,y)cos(y)/(1+x^2))
+# countour plot for three dim data
 contour(x,y,f)
 contour(x,y,f,nlevels=45,add=T)
 ```
@@ -194,13 +204,13 @@ contour(x,y,fa,nlevels=15)
 ![](islr_code_files/figure-commonmark/unnamed-chunk-2-4.png)
 
 ``` r
-image(x,y,fa)
+image(x,y,fa) # colors coded plot (heatmap)
 ```
 
 ![](islr_code_files/figure-commonmark/unnamed-chunk-2-5.png)
 
 ``` r
-persp(x,y,fa)
+persp(x,y,fa) 
 ```
 
 ![](islr_code_files/figure-commonmark/unnamed-chunk-2-6.png)
@@ -339,14 +349,14 @@ Auto[1:4,]
     4             amc rebel sst
 
 ``` r
-Auto=na.omit(Auto)
+Auto=na.omit(Auto) # remove rows contains NA value
 dim(Auto)
 ```
 
     [1] 392   9
 
 ``` r
-names(Auto)
+names(Auto) # check variable names
 ```
 
     [1] "mpg"          "cylinders"    "displacement" "horsepower"   "weight"      
@@ -355,7 +365,7 @@ names(Auto)
 #### Additional Graphical and Numerical Summaries
 
 ``` r
-# plot(cylinders, mpg)
+# plot(cylinders, mpg) # doesn't find the dataset for plot
 plot(Auto$cylinders, Auto$mpg)
 ```
 
@@ -418,7 +428,8 @@ hist(mpg,col=2,breaks=15)
 ![](islr_code_files/figure-commonmark/unnamed-chunk-5-10.png)
 
 ``` r
-# pairs(Auto)
+# scatterplot for every pair of variables
+# pairs(Auto) 
 pairs(~ mpg + displacement + horsepower + weight + acceleration, Auto)
 ```
 
@@ -434,6 +445,7 @@ identify(horsepower,mpg,name)
     integer(0)
 
 ``` r
+# summary of each variable
 summary(Auto)
 ```
 
@@ -459,11 +471,16 @@ summary(mpg)
        Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
        9.00   17.00   22.75   23.45   29.00   46.60 
 
+``` r
+# q() for quit R, savehistory() for saving record, & loadhistory() for loading  
+```
+
 # Chapter 3 Lab: Linear Regression
 
 #### Simple Linear Regression
 
 ``` r
+# load required libraries
 library(MASS)
 require(ISLR)
 ```
@@ -480,7 +497,7 @@ require(ISLR)
         Auto
 
 ``` r
-fix(Boston)
+fix(Boston) # spreedsheet look
 names(Boston)
 ```
 
@@ -488,8 +505,7 @@ names(Boston)
      [8] "dis"     "rad"     "tax"     "ptratio" "black"   "lstat"   "medv"   
 
 ``` r
-# R doesn't know the data
-# lm.fit=lm(medv~lstat)
+# lm.fit=lm(medv~lstat) # R doesn't know the dataset
 lm.fit=lm(medv~lstat,data=Boston)
 attach(Boston)
 lm.fit=lm(medv~lstat)
@@ -505,7 +521,7 @@ lm.fit
           34.55        -0.95  
 
 ``` r
-summary(lm.fit)
+summary(lm.fit) # summarey of the model
 ```
 
 
@@ -528,7 +544,7 @@ summary(lm.fit)
     F-statistic: 601.6 on 1 and 504 DF,  p-value: < 2.2e-16
 
 ``` r
-names(lm.fit)
+names(lm.fit) # stored information in the model
 ```
 
      [1] "coefficients"  "residuals"     "effects"       "rank"         
@@ -551,6 +567,7 @@ confint(lm.fit)
     lstat       -1.026148 -0.8739505
 
 ``` r
+# produce confidence and prediction interval for prediction for a given value
 predict(lm.fit,data.frame(lstat=(c(5,10,15))), interval="confidence")
 ```
 
