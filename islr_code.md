@@ -99,7 +99,7 @@ y=x+rnorm(50,mean=50,sd=.1)
 cor(x,y)
 ```
 
-    [1] 0.9962846
+    [1] 0.9970539
 
 ``` r
 set.seed(1303) # reproduce the exact same set of random numbers
@@ -619,16 +619,17 @@ plot(1:20,1:20,pch=1:20)
 ![](islr_code_files/figure-commonmark/unnamed-chunk-6-5.png)
 
 ``` r
-par(mfrow=c(2,2))
-plot(lm.fit)
+# diagnostic plots for the model
+par(mfrow=c(2,2)) # split 2 x 2
+plot(lm.fit) # 
 ```
 
 ![](islr_code_files/figure-commonmark/unnamed-chunk-6-6.png)
 
 ``` r
-plot(predict(lm.fit), residuals(lm.fit))
-plot(predict(lm.fit), rstudent(lm.fit))
-plot(hatvalues(lm.fit))
+plot(predict(lm.fit), residuals(lm.fit)) # residuals vs predicted values for checking heteroscedasticity (non-constant variance) and nonlinear relationships
+plot(predict(lm.fit), rstudent(lm.fit)) # Studentized residuals vs predicted values, to identify influential points or outliers in the data
+plot(hatvalues(lm.fit)) # influence of each observation on the fitted values, High hat values indicate influential observations that have a large impact on the model fit
 which.max(hatvalues(lm.fit))
 ```
 
@@ -707,7 +708,7 @@ library(car)
     Loading required package: carData
 
 ``` r
-vif(lm.fit)
+vif(lm.fit) # Variance Inflation Factors measures the degree of multicollinearity between each predictor variable and the other predictor variables in the model. A VIF of 1 indicates no correlation, and a VIF greater than 1 indicates some degree of correlation.
 ```
 
         crim       zn    indus     chas      nox       rm      age      dis 
