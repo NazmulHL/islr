@@ -99,7 +99,7 @@ y=x+rnorm(50,mean=50,sd=.1)
 cor(x,y)
 ```
 
-    [1] 0.9970539
+    [1] 0.9938662
 
 ``` r
 set.seed(1303) # reproduce the exact same set of random numbers
